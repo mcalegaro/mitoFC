@@ -1,5 +1,5 @@
 angular.
-module('ligaDetail').
+module('ligaDetail', []).
 component('ligaDetail', {
     templateUrl: '/view1/liga-detail.html',
     controller: ['$http', '$routeParams', 'LigaInfo', '$scope',

@@ -4,7 +4,7 @@ angular.
 module('myApp.ligas').
 factory('Liga', ['$resource',
   function ($resource) {
-    return $resource(rootServiceUri+'/mitoAPI/ligas?q=:nomeLiga', {
+    return $resource(rootServiceUri + '/mitoAPI/ligas?q=:nomeLiga', {
       // nomeLiga: '@nomeLiga'
     }, {
       // return $resource('ligas/:ligaId.json', {}, {
@@ -28,7 +28,7 @@ factory('Liga', ['$resource',
   }
 ]).factory('LigaInfo', ['$resource',
   function ($resource) {
-    return $resource(rootServiceUri+'/mitoAPI/auth/liga/:slugId/:slug', {
+    return $resource(rootServiceUri + '/mitoAPI/auth/liga/:slugId/:slug', {
       slugId: '@slug'
     }, {
       query: {

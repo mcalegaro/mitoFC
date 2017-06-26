@@ -1,1 +1,1 @@
-angular.module('myApp.ligas', ['ngResource']);
+angular.module('myApp.ligas', []);

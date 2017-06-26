@@ -9,11 +9,11 @@ angular.module('myApp.view1', ['ngRoute', 'myApp.ligas'])
     });
   }])
 
-  .controller('View1Ctrl', ['$scope', 'Liga', 'LigaInfo', function ($scope, Liga, LigaInfo) {
-    $scope.pesquisaLigas = function () {
-      if ($scope.nomeLiga != '') {
+  .controller('View1Ctrl', ['$scope', 'Liga', 'LigaInfo', function (scope, Liga, LigaInfo) {
+    scope.pesquisaLigas = function () {
+      if (scope.nomeLiga != '') {
         this.ligas = Liga.query({
-          nomeLiga: $scope.nomeLiga
+          nomeLiga: scope.nomeLiga
         });
       }
     }
