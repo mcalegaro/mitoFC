@@ -1,1 +1,15 @@
-<p>This is the partial for view 1.</p>
+<div ng-controller="View1Ctrl">
+    <p>
+        <label>Liga:</label>
+        <input type="text" name="txtLiga" size="20" width="40" ng-model="nomeLiga" data-ng-change="pesquisaLigas()"/>
+        <!--<input type="button" value="OK" ng-click="pesquisaLigas()"/>-->
+    </p>
+    <p>
+        <p>Ligas encontradas: {{ligas.length}}</p>
+        <ul>
+            <table class="table">
+                <tr ng-repeat="liga in ligas" ng-liga/>
+            </table>
+        </ul>
+    </p>
+</div>
