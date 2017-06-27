@@ -1,98 +1,102 @@
-<div ng-if="$ctrl.liga.liga == null">Carregando...</div>
-<div ng-if="$ctrl.liga.liga != null">
-    <div ng-if="$ctrl.liga.error != null">Serviço Indisponível. :(</div>
-    <div ng-if="$ctrl.liga.error == null" style="text-align: center">
-        <div id="divMenu">
-            <div id="divLiga" style="width: 40%; display: inline-block; line-height: normal; vertical-align: middle;">
-                <img src="{{$ctrl.liga.liga.url_flamula_png}}" height="40" />
-                <span><b>{{$ctrl.liga.liga.nome}}</b></span>
-                <p>{{$ctrl.liga.liga.descricao}}</p>
-            </div>
-            <div style="width: 40%; display: inline-block; line-height: normal; vertical-align: middle;">
-                <div id="selectButton" class="dropdown">
-                    <span class="label label-primary">Classificação</span>
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="true">
+<div id="ligaDetail" style="text-align: center;">
+    <div ng-if="$ctrl.liga.liga == null && $ctrl.liga.error == null">Carregando...</div>
+    <div ng-if="$ctrl.liga.liga != null">
+        <div ng-if="$ctrl.liga.error != null">Serviço Indisponível. :(</div>
+        <div ng-if="$ctrl.liga.error == null" style="text-align: center">
+            <div id="divMenu">
+                <div id="divLiga" style="width: 78%; line-height: normal; vertical-align: middle; display: inline-block;">
+                    <div style="width: 20%; display: inline-block; vertical-align: middle; line-height: normal;">
+                        <img src="{{$ctrl.liga.liga.url_flamula_png}}" height="40" />
+                    </div>
+                    <div style="width: 75%; display: inline-block; vertical-align: middle; line-height: normal; text-align: left;">
+                        <b>{{$ctrl.liga.liga.nome}}</b>
+                        <br/><i style="font-size: 10px; color: gray;">{{$ctrl.liga.liga.descricao}}</i>
+                    </div>
+                </div>
+                <div style="width: 20%; line-height: normal; vertical-align: middle; display: inline-block;">
+                    <div id="selectButton" class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="true">
                         <div ng-switch="$ctrl.orderProp" style="display: inline-block">
-                            <div ng-switch-when="pontos.campparcial">Campeonato+parciais</div>
-                            <div ng-switch-when="pontos.campeonato">Campeonato</div>
-                            <div ng-switch-when="pontos.rodada">Útlima Rodada</div>
-                            <div ng-switch-when="pontos.parcial">Parciais</div>
+                            <div class="glyphicon glyphicon-star" ng-switch-when="pontos.campparcial"><div class="glyphicon glyphicon-star-empty"></div></div>
+                            <div class="glyphicon glyphicon-star" ng-switch-when="pontos.campeonato"></div>
+                            <div class="glyphicon glyphicon-step-backward" ng-switch-when="pontos.rodada"></div>
+                            <div class="glyphicon glyphicon-star-empty" ng-switch-when="pontos.parcial"></div>
+                            <div class="glyphicon glyphicon-euro" ng-switch-when="patrimonio"></div>
                         </div>
                     <span class="caret"></span>
                 </button>
 
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#" ng-click="$ctrl.setOrder('pontos.campparcial')">Campeonato+parciais</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#" ng-click="$ctrl.setOrder('pontos.campeonato')">Campeonato</a></li>
-                    <li><a href="#" ng-click="$ctrl.setOrder('pontos.parcial')">Parciais</a></li>
-                    <li><a href="#" ng-click="$ctrl.setOrder('pontos.rodada')">Última Rodada</a></li>
-                </ul>
-                    <!--<select data-ng-model="$ctrl.orderProp">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <a class="glyphicon glyphicon-star" ng-click="$ctrl.setOrder('pontos.campparcial')">
+                                    <div class="glyphicon glyphicon-star-empty"></div>
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a class="glyphicon glyphicon-star" ng-click="$ctrl.setOrder('pontos.campeonato')"></a></li>
+                            <li><a class="glyphicon glyphicon-star-empty" ng-click="$ctrl.setOrder('pontos.parcial')"></a></li>
+                            <li><a class="glyphicon glyphicon-step-backward" ng-click="$ctrl.setOrder('pontos.rodada')"></a></li>
+                            <li><a class="glyphicon glyphicon-euro" ng-click="$ctrl.setOrder('patrimonio')"></a></li>
+                        </ul>
+                        <!--<select data-ng-model="$ctrl.orderProp">
                     <option value="pontos.campparcial">Campeonato + Parciais</option>
                     <option value="pontos.parcial">Parcias</option>
                 </select>-->
+                    </div>
                 </div>
             </div>
-        </div>
-        <table align="center" class="table">
-            <tr ng-repeat="time in $ctrl.liga.times | orderBy:$ctrl.orderProp:true">
-                <td>{{$index+1}}<sup><u>o</u></sup></td>
-                <td>
-
-                    <div ng-switch="$ctrl.orderProp" style="display: inline-block">
-                        <div ng-switch-when="pontos.campeonato">
-                            <div ng-if="time.variacao.campeonato > 0">
-                                {{time.variacao.campeonato}}
-                                <span class="glyphicon glyphicon-arrow-up" style="color: green"></span>
+            <table align="center" style="width: 100%;">
+                <tr ng-repeat="time in $ctrl.liga.times | orderBy:[$ctrl.orderProp,'pontos.campeonato']:true" style="border-top-style: double; border-top-color: gray; height: 52px;">
+                    <td>{{$index+1}}<sup><u>o</u></sup></td>
+                    <td style="width: 10%;">
+                        <div ng-switch="$ctrl.orderProp" style="display: inline-block; vertical-align: middle">
+                            <div ng-switch-when="pontos.campeonato">
+                                <span ng-init="diff = time.variacao.campeonato" ng-up-down/>
                             </div>
-                            <div ng-if="time.variacao.campeonato < 0">
-                                {{time.variacao.campeonato}}
-                                <span class="glyphicon glyphicon-arrow-down" style="color: red"></span>
+                            <div ng-switch-when="pontos.campparcial">
+                                <span ng-init="diff = time.ranking.campeonato - $index - 1" ng-up-down/>
+                            </div>
+                            <div ng-switch-when="patrimonio">
+                                <span ng-init="diff = time.variacao.patrimonio" ng-up-down/>
                             </div>
                         </div>
-                        <div ng-switch-when="pontos.campparcial">
-                            <span ng-init="diff = time.ranking.campeonato - $index - 1">
-                            <div ng-if="diff > 0">
-                                {{diff}}
-                                <span class="glyphicon glyphicon-arrow-up" style="color: green"></span>
-                        </div>
-                        <div ng-if="diff < 0">
-                            {{diff}}
-                            <span class="glyphicon glyphicon-arrow-down" style="color: red"></span>
-                        </div>
-                        </span>
-                    </div>
-    </div>
-    </td>
-    <td nowrap><img src="{{time.url_escudo_png}}" height="35" />
-        <img src="{{time.foto_perfil}}" height="18" style="border-radius: 25px; position: relative; left: -20px; top: 10px;" /></td>
-    <td align="left" style="line-height: normal;">
-        <b>
+                    </td>
+                    <td nowrap><img src="{{time.url_escudo_png}}" height="35" />
+                        <img src="{{time.foto_perfil}}" height="18" style="border-radius: 25px; position: relative; left: -20px; top: 10px;" /></td>
+                    <td align="left" style="line-height: normal;">
+                        <b style="font-size: 11px;">
+                        <div style="word-wrap: break-word; width: inherit; margin: 0 0 0 0;">
                     {{time.nome}}
+                        </div>
                     </b>
-        <p style="font-size: 11px; color: gray;">
-            {{time.nome_cartola}}
-        </p>
-    </td>
-    <td align="right" style="color:green">
-        <span ng-if="$ctrl.orderProp=='pontos.campparcial'">
-                    {{time.pontos.campparcial | number:2}}
-                    <p style="color: gray">{{time.pontos.atletas}}/12</p>
-                </span>
-        <span ng-if="$ctrl.orderProp=='pontos.campeonato'">
-                    {{time.pontos.campeonato | number:2}}
-                </span>
-        <span ng-if="$ctrl.orderProp=='pontos.rodada'">
+                        <p style="font-size: 10px; color: gray;">
+                            {{time.nome_cartola}}
+                        </p>
+                    </td>
+                    <td align="right" style="color:green">
+                        <div ng-switch="$ctrl.orderProp">
+                            <span ng-switch-when="pontos.campparcial">
+                            {{time.pontos.campparcial | number:2}}
+                            <p style="color: gray">{{time.pontos.atletas}}/12</p>
+                        </span>
+                            <span ng-switch-when="pontos.campeonato">
+                            {{time.pontos.campeonato | number:2}}
+                        </span>
+                        </div>
+                        <span ng-if="$ctrl.orderProp=='pontos.rodada'">
                     {{time.pontos.rodada | number:2}}
                 </span>
-        <span ng-if="$ctrl.orderProp=='pontos.parcial'">
+                        <span ng-if="$ctrl.orderProp=='pontos.parcial'">
                     {{time.pontos.parcial | number:2}}
                     <p style="color: gray">{{time.pontos.atletas}}/12</p>
                 </span>
-    </td>
-    </tr>
-    </table>
-</div>
+                        <span ng-if="$ctrl.orderProp=='patrimonio'">
+                    {{time.patrimonio | number:2}}
+                </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

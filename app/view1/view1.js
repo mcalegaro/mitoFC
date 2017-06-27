@@ -28,4 +28,10 @@ angular.module('myApp.view1', ['ngRoute', 'myApp.ligas'])
       restrict: 'A',
       templateUrl: 'view1/liga-item.html'
     }
+  })
+  .directive('ngUpDown', function () {
+    return {
+      restrict: 'A',
+      templateUrl: 'view1/up-down.html'
+    }
   });
