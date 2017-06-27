@@ -4,16 +4,16 @@
         <div ng-if="$ctrl.liga.error != null">Serviço Indisponível. :(</div>
         <div ng-if="$ctrl.liga.error == null" style="text-align: center">
             <div id="divMenu">
-                <div id="divLiga" style="width: 78%; line-height: normal; vertical-align: middle; display: inline-block;">
-                    <div style="width: 20%; display: inline-block; vertical-align: middle; line-height: normal;">
+                <div id="divLiga" style="width: 70%; vertical-align: middle; display: inline-block;">
+                    <div style="width: 20%; display: inline-block; vertical-align: middle; ">
                         <img src="{{$ctrl.liga.liga.url_flamula_png}}" height="40" />
                     </div>
-                    <div style="width: 75%; display: inline-block; vertical-align: middle; line-height: normal; text-align: left;">
+                    <div style="width: 75%; display: inline-block; vertical-align: middle; text-align: justify;">
                         <b>{{$ctrl.liga.liga.nome}}</b>
                         <br/><i style="font-size: 10px; color: gray;">{{$ctrl.liga.liga.descricao}}</i>
                     </div>
                 </div>
-                <div style="width: 20%; line-height: normal; vertical-align: middle; display: inline-block;">
+                <div style="width: 20%; vertical-align: middle; display: inline-block;">
                     <div id="selectButton" class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">
@@ -22,22 +22,23 @@
                             <div class="glyphicon glyphicon-star" ng-switch-when="pontos.campeonato"></div>
                             <div class="glyphicon glyphicon-step-backward" ng-switch-when="pontos.rodada"></div>
                             <div class="glyphicon glyphicon-star-empty" ng-switch-when="pontos.parcial"></div>
+                            <div class="glyphicon glyphicon-calendar" ng-switch-when="pontos.mes"></div>
                             <div class="glyphicon glyphicon-euro" ng-switch-when="patrimonio"></div>
                         </div>
                     <span class="caret"></span>
                 </button>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a class="glyphicon glyphicon-star" ng-click="$ctrl.setOrder('pontos.campparcial')">
-                                    <div class="glyphicon glyphicon-star-empty"></div>
+                                <a ng-click="$ctrl.setOrder('pontos.campparcial')">
+                                    <span class="glyphicon glyphicon-star"><span class="glyphicon glyphicon-star-empty"></span> Campeonato/parciais</span>
                                 </a>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a class="glyphicon glyphicon-star" ng-click="$ctrl.setOrder('pontos.campeonato')"></a></li>
-                            <li><a class="glyphicon glyphicon-star-empty" ng-click="$ctrl.setOrder('pontos.parcial')"></a></li>
-                            <li><a class="glyphicon glyphicon-step-backward" ng-click="$ctrl.setOrder('pontos.rodada')"></a></li>
-                            <li><a class="glyphicon glyphicon-euro" ng-click="$ctrl.setOrder('patrimonio')"></a></li>
+                            <li><a class="glyphicon glyphicon-star" ng-click="$ctrl.setOrder('pontos.campeonato')"> Campeonato</a></li>
+                            <li><a class="glyphicon glyphicon-star-empty" ng-click="$ctrl.setOrder('pontos.parcial')"> Parciais</a></li>
+                            <li><a class="glyphicon glyphicon-step-backward" ng-click="$ctrl.setOrder('pontos.rodada')"> Última Rodada</a></li>
+                            <li><a class="glyphicon glyphicon-calendar" ng-click="$ctrl.setOrder('pontos.mes')"> Mensal</a></li>
+                            <li><a class="glyphicon glyphicon-euro" ng-click="$ctrl.setOrder('patrimonio')"> Patrimônio</a></li>
                         </ul>
                         <!--<select data-ng-model="$ctrl.orderProp">
                     <option value="pontos.campparcial">Campeonato + Parciais</option>
@@ -47,8 +48,9 @@
                 </div>
             </div>
             <table align="center" style="width: 100%;">
-                <tr ng-repeat="time in $ctrl.liga.times | orderBy:[$ctrl.orderProp,'pontos.campeonato']:true" style="border-top-style: double; border-top-color: gray; height: 52px;">
-                    <td>{{$index+1}}<sup><u>o</u></sup></td>
+                <tr ng-repeat="time in $ctrl.liga.times | orderBy:[$ctrl.orderProp,'pontos.campeonato']:true" 
+                    style="border-top-style: solid; border-top-color: gray; height: 52px;">
+                    <td style="width: 5%; font-size: 10px; color: gray;">{{$index+1}}<sup><u>o</u></sup></td>
                     <td style="width: 10%;">
                         <div ng-switch="$ctrl.orderProp" style="display: inline-block; vertical-align: middle">
                             <div ng-switch-when="pontos.campeonato">
@@ -62,38 +64,31 @@
                             </div>
                         </div>
                     </td>
-                    <td nowrap><img src="{{time.url_escudo_png}}" height="35" />
+                    <td style="width: 10%;" nowrap><img src="{{time.url_escudo_png}}" height="35" />
                         <img src="{{time.foto_perfil}}" height="18" style="border-radius: 25px; position: relative; left: -20px; top: 10px;" /></td>
-                    <td align="left" style="line-height: normal;">
-                        <b style="font-size: 11px;">
-                        <div style="word-wrap: break-word; width: inherit; margin: 0 0 0 0;">
-                    {{time.nome}}
-                        </div>
-                    </b>
-                        <p style="font-size: 10px; color: gray;">
-                            {{time.nome_cartola}}
-                        </p>
+                    <td style="width: 30%; line-height: normal;" align="left">
+                        <b style="font-size: 12px;">
+                            <div style="word-wrap: break-word; width: inherit; margin: 0 0 0 0;">{{time.nome}}</div>
+                        </b>
+                        <p style="font-size: 10px; color: gray;">{{time.nome_cartola}}</p>
                     </td>
-                    <td align="right" style="color:green">
+                    <td style="width: 20%; color:green" align="right">
                         <div ng-switch="$ctrl.orderProp">
-                            <span ng-switch-when="pontos.campparcial">
-                            {{time.pontos.campparcial | number:2}}
-                            <p style="color: gray">{{time.pontos.atletas}}/12</p>
-                        </span>
-                            <span ng-switch-when="pontos.campeonato">
-                            {{time.pontos.campeonato | number:2}}
-                        </span>
+                            <span ng-switch-when="pontos.campparcial">{{time.pontos.campparcial | number:2}}
+                                <p style="color: gray">{{time.pontos.atletas}}/12</p>
+                            </span>
+                            <span ng-switch-when="pontos.campeonato">{{time.pontos.campeonato | number:2}}
+                            </span>
+                            <span ng-switch-when="pontos.rodada">{{time.pontos.rodada | number:2}}
+                            </span>
+                            <span ng-switch-when="pontos.parcial">{{time.pontos.parcial | number:2}}
+                                <p style="color: gray">{{time.pontos.atletas}}/12</p>
+                            </span>
+                            <span ng-switch-when="pontos.mes">{{time.pontos.mes | number:2}}
+                            </span>
+                            <span ng-switch-when="patrimonio">{{time.patrimonio | number:2}}
+                            </span>
                         </div>
-                        <span ng-if="$ctrl.orderProp=='pontos.rodada'">
-                    {{time.pontos.rodada | number:2}}
-                </span>
-                        <span ng-if="$ctrl.orderProp=='pontos.parcial'">
-                    {{time.pontos.parcial | number:2}}
-                    <p style="color: gray">{{time.pontos.atletas}}/12</p>
-                </span>
-                        <span ng-if="$ctrl.orderProp=='patrimonio'">
-                    {{time.patrimonio | number:2}}
-                </span>
                     </td>
                 </tr>
             </table>
