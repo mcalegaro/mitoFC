@@ -1,4 +1,5 @@
 var rootServiceUri = 'https://mito-api.herokuapp.com';
+// var rootServiceUri = 'http://localhost:8090';
 
 angular.
 module('myApp.ligas').
